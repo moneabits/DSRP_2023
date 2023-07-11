@@ -1,0 +1,54 @@
+**hello world!**
+
+# Header 1
+
+## Header 2
+
+### header 3
+
+#### header 4
+
+## Plotting!!
+
+**scatter plot**
+
+1.  Git Hub
+2.  uwu
+
+### Best fit scatter plot!!
+
+![](images/line_of_best_fit.png){width="495"}
+
+```{r}
+# this is a cool cat comment 
+
+library(ggplot2)
+
+ggplot(data = iris, aes(x= iris$Species, y=iris$Sepal.Length))+
+  geom_violin(color = "white", fill = "pink") + geom_boxplot(width = .2, fill = "lightyellow") +
+  labs(
+     titile = "Distribution of Iris Sepal lenghts",
+     x = "Species",
+     y = "Sepal Lenght"
+  )
+
+head(iris)
+```
+
+Put different plots n stuff in different code chunks + also fill the space between with text explaining the chunck
+
+```{r hello_world}
+# hello world 
+
+ggplot(data = iris, aes(x = iris$Species, y= iris$Sepal.Length, fill = iris$Species))+
+  geom_bar(stat = "summary", fun = "mean", color = "black") +
+  labs(
+    titile = "Distribution of Iris Sepal lenghts",
+    x = "Species",
+    y = "Sepal Lenght"
+  ) 
+
+
+```
+
+\
