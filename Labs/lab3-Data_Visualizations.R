@@ -14,6 +14,7 @@ View(Pokemon)
 gen = Pokemon$Generation
 hp = Pokemon$HP
 tp = Pokemon$Type.1
+tot = Pokemon$Total
 
 # Plot 1 #### 
 ggplot(data = Pokemon, aes(x=gen)) +
@@ -27,7 +28,7 @@ ggplot(data = Pokemon, aes(x=gen)) +
 
 
 # Plot 2 ####
-ggplot(data = Pokemon, aes(fill = tp, x = tp, y = hp) +
+ggplot(data = Pokemon, aes(fill = tp, x = tp, y = tot) +
   geom_violin() +
   theme_minimal() + 
   labs(

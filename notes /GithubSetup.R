@@ -12,6 +12,5 @@ usethis::use_git_config(user.name = "Mone Abbott",
 usethis::create_github_token()
 
 
-## set personal token !1
-credentials::set_github_pat("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")
+
 
