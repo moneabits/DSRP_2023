@@ -1,0 +1,137 @@
+### install + load packages
+
+```{r setup}
+ #install.packages("janitor")
+ #install.packages("tidyr")
+ 
+ # load required packages
+ library(tidyr)
+ library(janitor)
+ library(dplyr)
+
+```
+
+### Janitor
+
+```{r}
+clean_names (clean_names(starwars, case = "small_camel")) 
+new_starwars = clean_names(starwars, case = "screaming_snake")
+
+```
+
+### Challenge problem! 
+
+```{r}
+Starwars_women = select(arrange(filter(starwars, sex == "female"), birth_year), name, species)
+Starwars_women
+```
+
+### Pipe \|\>
+
+allows to nestle functions within one another
+
+`function(data, parameters)` becomes `data |> function(parameters)`
+
+```{r}
+# using pipes 
+sWW = starwars |> 
+  filter(sex =="female") |>
+  arrange(birth_year) |> 
+  select(name, species)
+
+sWW
+```
+
+### Slice\_ 
+
+takes rows based on their potions, There are 5 handy functions that allow you to extract specific rows within each group:
+
+-   `slice_head(data, n = 1)` takes the first row from each group
+
+-   `slice_tail(data, n = 1)` takes the last rows in each group
+
+-   `slice_min(data, x, n = 1)` takes the row with the smallest value of column x
+
+-   `slice_max(data, x, n = 1)` takes the row with the largest value of column x
+
+-    `slice_sample(data, n = 1)` takes on random row.
+
+You can vary `n` to select more than one row, or instead of `n=`, you can use `prop = 0.1` to select (e.g) 10% of the rows in each group
+
+```{r}
+# 10 tallest starwars characters /w slice 
+tall_star_wars = slice_max(starwars, height, n=10)
+tall_star_wars
+
+# top 2 of each species 
+slice_max(starwars, height, n=10, by = species, with_ties = F) # with ties elimnates ties
+```
+
+## Tidy
+
+### pivot_longer 
+
+```{r}
+table4a
+
+#Changes columns  + names
+tidy_table4a = pivot_longer(table4a, 
+             cols = c(`1999`, `2000`),
+             names_to = "year",
+             values_to = "cases")
+```
+
+```{r}
+# table b into tidy format 
+table4b
+
+tidy_table4b = pivot_longer(table4b,
+             cols = c(`1999`, `2000`),
+             names_to = "year",
+             values_to = "population")
+```
+
+### pivot_wider 
+
+```{r}
+table2
+
+pivot_wider(table2,
+            names_from = type,
+            values_from = count)
+```
+
+### separate
+
+to split values into 2 different columns
+
+```{r}
+table3
+
+separate(table3, 
+         rate,
+         into = c("cases", "population"),
+         sep = "/") #specify when to separate
+```
+
+### unite 
+
+joining 2 different columns into 1
+
+```{r}
+table5
+
+unite(table5,
+      "year",
+      col = c("century", "year"),
+      sep = "")
+# fixing table 5 
+tidy_table5 <- table5 |>
+  unite("year", col())
+```
+
+### bind rows
+
+```{r}
+new_data <- data.frame(country = "USA", year = "1999", cases = "1042", population = "200000000")
+```

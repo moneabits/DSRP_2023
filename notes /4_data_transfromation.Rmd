@@ -303,7 +303,7 @@ summarize(starwars,
 
 ```
 
-#### Renaming data 
+#### Renaming data
 
 rename(data, new_name = old_name)
 

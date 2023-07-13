@@ -1,0 +1,44 @@
+### load packages + libraries
+
+```{r}
+ # load required packages
+ library(tidyr)
+ library(janitor)
+ library(dplyr)
+
+# pokemon library 
+Pokemon = read.csv("/Users/tamiaabbott/Desktop/programing/camps/DSRP/DSRP_2023/Data/Pokemon.csv")
+
+View(Pokemon)
+```
+
+## Part 1 - Test for a significant difference between 2 groups 
+
+```{r}
+highest_tot = slice_max(Pokemon, n=36, Pokemon$Total, with_ties = F )
+highest_tot
+```
+
+#### Comparing legendary & non legendary Pokemon based on which ones have the higher total stats
+
+Hypothesis : Legendary Pokemon on average are going to have a higher total stats
+
+Null Hypothesis : Legendary Pokemon and non-legendary Pokemon share the same mean total stats
+
+Alt hypothesis: Legendary Pokemon and non-legendary Pokemon have differing mean total stats
+
+```{r}
+# sort based on legendary status 
+pkLegndary = Pokemon |> filter(Legendary == "True")
+pknonLegndary = Pokemon |> filter(Legendary == "False")
+
+# testing time! 
+
+t.test(pkLegndary$Total, pknonLegndary$Total, paired = F, alternative = "two.sided")
+```
+
+**Results**
+
+-   P-value = 2.2 \* 10^-16^
+    -   There is a very unlikely that this result was by chance.
+    -   
