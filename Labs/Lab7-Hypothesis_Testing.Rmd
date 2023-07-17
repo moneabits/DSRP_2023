@@ -41,4 +41,65 @@ t.test(pkLegndary$Total, pknonLegndary$Total, paired = F, alternative = "two.sid
 
 -   P-value = 2.2 \* 10^-16^
     -   There is a very unlikely that this result was by chance.
-    -   
+
+## Part 2 - **Test for a significant difference between 3+ groups**
+
+#### Looking for a difference for the mean total stats for different Pokemon types
+
+Null Hypothesis : There is no difference in mean total stats for Pokemon from different types
+
+Alt hypothesis: There is a difference in mean total stats for Pokemon from differing types
+
+```{r Part_2}
+pk_tytot_results = aov(data = Pokemon, Pokemon$Total ~ Pokemon$Type.1)
+
+## looking at the results 
+summary(pk_tytot_results)
+
+## which types are different from one another 
+results = TukeyHSD(pk_tytot_results)
+pk_res = results$`Pokemon$Type.1`
+l = as.data.frame(pk_res)
+```
+
+```{r}
+slice_max(l, diff, n =1)
+```
+
+p-value = 2.08e^-09^
+
+meaning: That there is a apparent difference
+
+## Part 3 - **Test for a significant association between categorical variables**
+
+#### Looking for a relationship between a Pokemon type and if they are a legendary 
+
+Null Hypothesis : There is no relationship between the Pokemon type and whether or not they're a legendary
+
+Alt hypothesis: There is an relationship between the Pokemon type and whether or not they're a legendary.
+
+```{r}
+# Cleaning & Preping data 
+Pk_clean = Pokemon |> 
+  filter(Legendary == "False")
+
+## checking the plots 
+ggplot(Pokemon, aes(x = Type.1,  y = Legendary)) + 
+  geom_count() +
+  theme_minimal()
+```
+
+```{r}
+# making a contingency table 
+t_pk = table(Pokemon$Type.1, Pokemon$Legendary)
+
+
+
+# chi - sqaured test 
+chi = chisq.test(t_pk)
+chi$p.value
+chi$residuals
+
+# plotting res 
+corrplot(chi$residuals, is.corr = F)
+```

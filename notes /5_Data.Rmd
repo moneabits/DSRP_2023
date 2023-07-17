@@ -19,7 +19,7 @@ new_starwars = clean_names(starwars, case = "screaming_snake")
 
 ```
 
-### Challenge problem! 
+### Challenge problem!
 
 ```{r}
 Starwars_women = select(arrange(filter(starwars, sex == "female"), birth_year), name, species)
@@ -42,7 +42,7 @@ sWW = starwars |>
 sWW
 ```
 
-### Slice\_ 
+### Slice\_
 
 takes rows based on their potions, There are 5 handy functions that allow you to extract specific rows within each group:
 
@@ -54,7 +54,7 @@ takes rows based on their potions, There are 5 handy functions that allow you to
 
 -   `slice_max(data, x, n = 1)` takes the row with the largest value of column x
 
--    `slice_sample(data, n = 1)` takes on random row.
+-   `slice_sample(data, n = 1)` takes on random row.
 
 You can vary `n` to select more than one row, or instead of `n=`, you can use `prop = 0.1` to select (e.g) 10% of the rows in each group
 
@@ -69,7 +69,7 @@ slice_max(starwars, height, n=10, by = species, with_ties = F) # with ties elimn
 
 ## Tidy
 
-### pivot_longer 
+### pivot_longer
 
 ```{r}
 table4a
@@ -91,7 +91,7 @@ tidy_table4b = pivot_longer(table4b,
              values_to = "population")
 ```
 
-### pivot_wider 
+### pivot_wider
 
 ```{r}
 table2
@@ -114,7 +114,7 @@ separate(table3,
          sep = "/") #specify when to separate
 ```
 
-### unite 
+### unite
 
 joining 2 different columns into 1
 
