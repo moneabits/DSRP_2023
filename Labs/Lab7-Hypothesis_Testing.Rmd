@@ -72,7 +72,7 @@ meaning: That there is a apparent difference
 
 ## Part 3 - **Test for a significant association between categorical variables**
 
-#### Looking for a relationship between a Pokemon type and if they are a legendary 
+#### Looking for a relationship between a Pokemon type and if they are a legendary
 
 Null Hypothesis : There is no relationship between the Pokemon type and whether or not they're a legendary
 

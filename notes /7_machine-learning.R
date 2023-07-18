@@ -3,11 +3,11 @@ install.packages("tidymodels")
 install.packages("reshape2")
 install.packages("xgboost")
 install.packages("ranger")
-install.packages("MLmetrics")
+install.packages("Metrics")
 library(ranger)
 library(reshape2)
 library(yardstick)
-library(MLmetrics)
+library(Metrics)
 
 ## Unsupervised learning #### 
 ## Principal Components Analysis 
@@ -181,3 +181,14 @@ yardstick::rmse(reg_results, Sepal.Length, forest_pred)
 
 class_results = class_test
 
+class_results$log_pred = predict(log_fit, class_test)$.pred.class
+class_results$clboost_pred = predict(boost_class_fit, class_test)$.pred_class
+class_results$clforest_pred = predict(forest_class_fit, class_test)$.pred_class
+
+
+# Class results 
+class_results$Species == "setosa"
+class_results$clboost_pred == "setosa"
+
+# f1 score time <3 
+f1(class_results$Species == "virginica", class_results$clboost_pred == "virginica")
