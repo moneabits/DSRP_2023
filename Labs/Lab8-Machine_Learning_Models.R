@@ -77,7 +77,7 @@ pk_reg_train = training(pk_reg_split)
 pk_lm_fit = linear_reg()|>
   set_engine("lm") |>
   set_mode("regression") |> 
-  fit( Sp..Atk ~ ., data = pk_reg_train)
+  fit(HP ~ ., data = pk_reg_train)
 
 # with total = .1956 , everything = 
 pk_lm_fit
@@ -87,6 +87,22 @@ summary(pk_lm_fit)
 pk_boost_reg_fit = boost_tree() |>
   set_engine("xgboost") |> 
   set_mode("regression") |> 
-  fit(Sp..Atk ~ ., data = pk_reg_train)
+  fit(HP ~ ., data = pk_reg_train)
 
 pk_boost_reg_fit$fit$evaluation_log
+
+# Evaluate model prefromance on Test Set
+
+pk_reg_results = pk_reg_test
+
+# Calculate accuracy for regression  models 
+pk_reg_results$pk_lm_pred = predict(pk_lm_fit, pk_reg_test)$.pred
+pk_reg_results$pk_boost_pred = predict(pk_boost_reg_fit, pk_reg_test)$.pred
+
+# MAE value 
+yardstick::mae(pk_reg_results, HP, pk_lm_pred)
+yardstick::mae(pk_reg_results, HP, pk_boost_pred)
+
+# RMSE value 
+yardstick::rmse(pk_reg_results, HP, pk_lm_pred)
+yardstick::rmse(pk_reg_results, HP, pk_boost_pred)
